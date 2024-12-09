@@ -1,0 +1,106 @@
+version: "3"
+
+services:
+  con1: 
+    networks:
+      - some-net
+    tty: true
+    build: .
+    expose:
+      - "22"
+    ports:
+      - "9093:9092"
+    volumes:
+      - ./clientconfig:/tmp/clientconfig
+    privileged: true
+    entrypoint: ["/usr/sbin/init"]
+      
+  con2:
+    networks:
+      - some-net
+    tty: true
+    build: .
+    expose:
+      - "22"
+    ports:
+      - "9092:9092"
+      - "8091:8090"
+    volumes:
+      - ./clientconfig:/tmp/clientconfig
+    privileged: true
+    entrypoint: ["/usr/sbin/init"]
+
+  con3:
+    networks:
+      - some-net
+    tty: true
+    build: .
+    expose:
+      - "22"
+    ports:
+      - "8081:8081"
+    privileged: true
+    entrypoint: ["/usr/sbin/init"]
+
+  con4:
+    networks:
+      - some-net
+    tty: true
+    build: .
+    expose:
+      - "22"
+    ports:
+      - "8083:8083"
+    privileged: true
+    entrypoint: ["/usr/sbin/init"]
+
+  con5:
+    networks:
+      - some-net
+    tty: true
+    build: .
+    expose:
+      - "22"
+    ports:
+      - "9021:9021"
+    privileged: true
+    entrypoint: ["/usr/sbin/init"]
+      
+  con6:
+    networks:
+      - some-net
+    tty: true
+    build: .
+    expose:
+      - "22"
+    ports:
+      - "8088:8088"
+    privileged: true
+    entrypoint: ["/usr/sbin/init"]
+
+  con7:
+    networks:
+      - some-net
+    tty: true
+    build: .
+    expose:
+      - "22"
+    ports:
+      - "9094:9092"
+      - "8090:8090"
+    volumes:
+      - ./clientconfig:/tmp/clientconfig
+    privileged: true
+    entrypoint: ["/usr/sbin/init"]
+
+  bastion:
+    image: alpine/ansible
+    entrypoint: /bin/bash
+    networks:
+      - some-net
+    tty: true
+    volumes:
+      - ./:/etc/data
+networks:
+  some-net:
+    driver: bridge
